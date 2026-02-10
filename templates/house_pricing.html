@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}House Pricing - AI Platform{% endblock %}
+
+{% block header_title %}House Price Prediction{% endblock %}
+{% block header_subtitle %}Estimate property value based on key features{% endblock %}
+
+{% block content %}
+<div class="card animate-fade-in">
+    <form action="/house-pricing" method="post">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            <div class="form-group">
+                <label>Area (sq ft)</label>
+                <input type="number" name="area" step="0.01" required placeholder="e.g. 5000">
+            </div>
+            <div class="form-group">
+                <label>Bedrooms</label>
+                <input type="number" name="bedrooms" required placeholder="e.g. 3">
+            </div>
+            <div class="form-group">
+                <label>Bathrooms</label>
+                <input type="number" name="bathrooms" required placeholder="e.g. 2">
+            </div>
+            <div class="form-group">
+                <label>Parking Spaces</label>
+                <input type="number" name="parking" required placeholder="e.g. 1">
+            </div>
+            <div class="form-group">
+                <label>Main Road</label>
+                <select name="mainroad">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Guestroom</label>
+                <select name="guestroom">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Basement</label>
+                <select name="basement">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Air Conditioning</label>
+                <select name="airconditioning">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Furnishing Status</label>
+                <select name="furnishingstatus">
+                    <option value="furnished">Furnished</option>
+                    <option value="semi-furnished">Semi-Furnished</option>
+                    <option value="unfurnished">Unfurnished</option>
+                </select>
+            </div>
+        </div>
+        <div class="btn-container">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-calculator"></i> Calculate Prediction
+            </button>
+        </div>
+    </form>
+</div>
+
+{% if prediction %}
+<div class="card animate-fade-in" style="background: rgba(99, 102, 241, 0.1); border-color: var(--primary);">
+    <h3 class="gradient-text"><i class="fas fa-tag"></i> Estimated Price</h3>
+    <p style="font-size: 2.5rem; font-weight: 700;">{{ prediction }}</p>
+</div>
+{% endif %}
+{% endblock %}

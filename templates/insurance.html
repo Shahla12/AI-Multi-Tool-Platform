@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Insurance Predictor - AI Platform{% endblock %}
+
+{% block header_title %}Medical Insurance Cost Predictor{% endblock %}
+{% block header_subtitle %}Estimate insurance premiums based on individual profile{% endblock %}
+
+{% block content %}
+<div class="card animate-fade-in">
+    <form action="/insurance" method="post">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            <div class="form-group">
+                <label>Age</label>
+                <input type="number" name="age" required placeholder="e.g. 25">
+            </div>
+            <div class="form-group">
+                <label>BMI</label>
+                <input type="number" name="bmi" step="0.1" required placeholder="e.g. 22.5">
+            </div>
+            <div class="form-group">
+                <label>Number of Children</label>
+                <input type="number" name="children" required placeholder="e.g. 0">
+            </div>
+            <div class="form-group">
+                <label>Sex</label>
+                <select name="sex">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Smoker</label>
+                <select name="smoker">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Region</label>
+                <select name="region">
+                    <option value="southwest">Southwest</option>
+                    <option value="southeast">Southeast</option>
+                    <option value="northwest">Northwest</option>
+                    <option value="northeast">Northeast</option>
+                </select>
+            </div>
+        </div>
+        <div class="btn-container">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-coins"></i> Calculate Premium
+            </button>
+        </div>
+    </form>
+</div>
+
+{% if prediction %}
+<div class="card animate-fade-in" style="background: rgba(99, 102, 241, 0.1); border-color: var(--primary);">
+    <h3 class="gradient-text"><i class="fas fa-file-invoice-dollar"></i> Predicted Premium</h3>
+    <p style="font-size: 2.5rem; font-weight: 700;">{{ prediction }} <span
+            style="font-size: 1rem; color: var(--text-muted);">/ year</span></p>
+</div>
+{% endif %}
+{% endblock %}

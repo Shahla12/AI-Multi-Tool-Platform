@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Cartoonify Image</title>
+    <style>
+        * { box-sizing: border-box; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+        body {
+            margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            background: radial-gradient(circle at top, #1e293b, #020617); color: #e5e7eb;
+        }
+        .card {
+            width: 100%; max-width: 950px; padding: 34px; border-radius: 18px;
+            background: #020617; box-shadow: 0 18px 35px rgba(15,23,42,0.9);
+            border: 1px solid rgba(148,163,184,0.12);
+        }
+        h1 { margin: 0 0 8px; font-size: 30px; font-weight: 650; }
+        p { margin: 0 0 18px; font-size: 16px; color: #9ca3af; }
+        label { font-size: 15px; color: #9ca3af; display:block; margin-bottom:6px; }
+        .row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+        input[type="file"] { color: #e5e7eb; }
+        input[type="number"], select {
+            padding: 10px 12px; border-radius:10px; border:1px solid #1f2937; background:#020617; color:#e5e7eb;
+        }
+        button {
+            padding: 12px 18px; border-radius:999px; border:none;
+            background: linear-gradient(135deg,#16a34a,#22c55e); color:#ecfdf5;
+            font-size:16px; font-weight:600; cursor:pointer;
+        }
+        .preview {
+            margin-top:20px; display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap;
+        }
+        .preview img { max-width: 320px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); display:block; }
+        .meta { color:#9ca3af; font-size:14px; margin-top:6px; }
+        .error { margin-top:12px; color:#fecaca; background: rgba(255, 255, 255, 0.03); padding:8px 12px; border-radius:8px; }
+        .small { font-size:13px; color:#9ca3af; }
+        @media (max-width:600px) {
+            .preview img { max-width: 100%; }
+            .card { padding:20px; }
+            button { width:100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>Cartoonify Image</h1>
+
+    {% if error %}
+    <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <form method="post" action="/cartoon" enctype="multipart/form-data">
+        <label for="file">Choose image</label>
+        <div class="row">
+            <input type="file" id="file" name="file" accept="image/*" required />
+            <label class="small">Colors:
+                <input type="number" name="n_colors" min="2" max="256" value="{{ n_colors | default(12) }}" style="width:80px; margin-left:8px;" />
+            </label>
+            <label class="small">Line thickness:
+                <input type="number" name="line_thickness" min="1" max="20" value="{{ line_thickness | default(2) }}" style="width:80px; margin-left:8px;" />
+            </label>
+            
+            <button type="submit">Cartoonify</button>
+        </div>
+    </form>
+
+    <div class="preview">
+        {% if uploaded %}
+        <div>
+            <div class="small">Original</div>
+            <img src="{{ uploaded }}" alt="uploaded" />
+        </div>
+        {% endif %}
+
+        {% if result %}
+        <div>
+            <div class="small">Result</div>
+            <a href="{{ result }}" download><img src="{{ result }}" alt="result" /></a>
+            <div class="meta">Click to download.</div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div style="margin-top:18px; color:#6b7280; font-size:13px;">
+        Tip: For large images, reduce number of colors for faster processing.
+    </div>
+</div>
+</body>
+</html> 

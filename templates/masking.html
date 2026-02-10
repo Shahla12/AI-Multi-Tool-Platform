@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}BG Removal - AI Platform{% endblock %}
+
+{% block header_title %}Background Removal{% endblock %}
+{% block header_subtitle %}Instantly remove backgrounds from any image{% endblock %}
+
+{% block content %}
+<div class="card animate-fade-in">
+    <form action="/masking" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>Upload Image</label>
+            <input type="file" name="file" accept="image/*" required>
+        </div>
+        <div class="btn-container">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-eraser"></i> Remove Background
+            </button>
+        </div>
+    </form>
+</div>
+
+{% if result %}
+<div class="animate-fade-in">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div class="card">
+            <h3>Original</h3>
+            <img src="{{ uploaded }}" style="width: 100%; border-radius: 12px;">
+        </div>
+        <div class="card">
+            <h3>Background Removed</h3>
+            <div style="border-radius: 12px; overflow: hidden; border: 1px solid var(--glass-border);">
+                <img src="{{ result }}" style="width: 100%; display: block;">
+            </div>
+            <div class="btn-container">
+                <a href="{{ result }}" download class="btn btn-secondary">
+                    <i class="fas fa-download"></i> Download PNG
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

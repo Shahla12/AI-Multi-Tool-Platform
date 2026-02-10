@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}City Scene Segmentation - AI Platform{% endblock %}
+
+{% block header_title %}City Image Segmentation{% endblock %}
+{% block header_subtitle %}Identify and segment objects in a City Image{% endblock %}
+
+{% block content %}
+<div class="card animate-fade-in">
+    <form action="/segmentation" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>Upload City Scene Image (High-resolution images give better object boundaries)</label>
+            <input type="file" name="file" accept="image/*" required>
+        </div>
+        <div class="btn-container">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-layer-group"></i> Run Segmentation
+            </button>
+        </div>
+    </form>
+</div>
+
+{% if result %}
+<div class="animate-fade-in">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div class="card">
+            <h3>Original</h3>
+            <img src="{{ uploaded }}" style="width: 100%; border-radius: 12px;">
+        </div>
+        <div class="card">
+            <h3>Segmented Map</h3>
+            <img src="{{ result }}" style="width: 100%; border-radius: 12px;">
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

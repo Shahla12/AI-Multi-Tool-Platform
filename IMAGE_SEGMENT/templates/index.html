@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AI Semantic Segmentation</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: radial-gradient(circle at top, #1e293b, #020617);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .card {
+            width: 900px;
+            background: #020617;
+            border-radius: 18px;
+            padding: 24px 30px 30px 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        }
+
+        h2 {
+            margin: 0 0 15px 0;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        input[type="file"] {
+            background: #020617;
+            color: white;
+            border: 1px solid #334155;
+            padding: 6px;
+            border-radius: 6px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            border: none;
+            color: white;
+            padding: 7px 18px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            transition: 0.2s;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .img-box {
+            background: #020617;
+            border-radius: 12px;
+            padding: 12px;
+            border: 1px solid #1e293b;
+            text-align: center;
+        }
+
+        .img-box h4 {
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .img-box img {
+            width: 100%;
+            border-radius: 10px;
+            object-fit: contain;
+        }
+
+        .footer-tip {
+            margin-top: 12px;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>AI Semantic Segmentation</h2>
+
+    <form action="/segment" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <button type="submit">Segment</button>
+    </form>
+
+    {% if original %}
+    <div class="preview-grid">
+        <div class="img-box">
+            <h4>Original</h4>
+            <img src="/{{ original }}">
+        </div>
+
+        <div class="img-box">
+            <h4>Segmented</h4>
+            <img src="/{{ segmented }}">
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="footer-tip">
+        Tip: High-resolution images give better object boundaries.
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Cartoonify - AI Platform{% endblock %}
+
+{% block header_title %}Cartoonify Your Images{% endblock %}
+{% block header_subtitle %}Transform photos into vibrant cartoon art{% endblock %}
+
+{% block content %}
+<div class="card animate-fade-in">
+    <form action="/cartoon" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>Upload Image</label>
+            <input type="file" name="file" accept="image/*" required>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            <div class="form-group">
+                <label>Number of Colors (2-64)</label>
+                <input type="number" name="n_colors" value="12" min="2" max="64">
+            </div>
+            <div class="form-group">
+                <label>Line Thickness (1-10)</label>
+                <input type="number" name="line_thickness" value="2" min="1" max="10">
+            </div>
+        </div>
+        <div class="btn-container">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-magic"></i> Cartoonify!
+            </button>
+        </div>
+    </form>
+</div>
+
+{% if result %}
+<div class="animate-fade-in">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div class="card">
+            <h3>Original</h3>
+            <img src="{{ uploaded }}" style="width: 100%; border-radius: 12px; border: 1px solid var(--glass-border);">
+        </div>
+        <div class="card">
+            <h3>Cartoon Result</h3>
+            <img src="{{ result }}"
+                style="width: 100%; border-radius: 12px; border: 1px solid var(--glass-border); box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+            <div class="btn-container">
+                <a href="{{ result }}" download class="btn btn-secondary">
+                    <i class="fas fa-download"></i> Download
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

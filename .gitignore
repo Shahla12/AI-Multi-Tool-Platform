@@ -1,0 +1,47 @@
+# Virtual Environments
+.venv/
+venv/
+**/venv/
+**/env/
+**/ENV/
+bin/
+include/
+lib/
+share/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Large / Generated files
+static/uploads/*
+!static/uploads/.gitkeep
+**/results/*
+**/static/results/*
+*.ipynb
+*.keras
+*.pkl
+*.h5
+*.joblib
+*.png
+*.jpg
+*.jpeg
+*.webp
+!static/favicon.png
+!templates/**/*.png
+!templates/**/*.jpg
+
+# Data
+**/chest_xray_Dataset/
+**/sample/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+
+# Vercel
+.vercel

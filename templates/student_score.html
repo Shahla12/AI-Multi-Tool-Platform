@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Student Performance - AI Platform{% endblock %}
+
+{% block header_title %}Student Score Predictor{% endblock %}
+{% block header_subtitle %}Predict academic marks based on study hours{% endblock %}
+
+{% block content %}
+<div class="card animate-fade-in">
+    <form action="/student-score" method="post">
+        <div class="form-group">
+            <label>Study Hours</label>
+            <input type="number" name="hours" step="0.1" required placeholder="e.g. 5.5">
+        </div>
+        <div class="btn-container">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-chart-line"></i> Predict Score
+            </button>
+        </div>
+    </form>
+</div>
+
+{% if prediction %}
+<div class="card animate-fade-in" style="background: rgba(20, 184, 166, 0.1); border-color: #14b8a6;">
+    <h3 style="color: #14b8a6;"><i class="fas fa-award"></i> Predicted Score</h3>
+    <p style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text-muted);">For {{ hours }} hours of study</p>
+    <p style="font-size: 3.5rem; font-weight: 700; color: #14b8a6;">{{ prediction }} %</p>
+</div>
+{% endif %}
+{% endblock %}

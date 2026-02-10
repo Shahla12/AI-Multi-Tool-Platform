@@ -1,0 +1,22 @@
+# Core
+fastapi
+uvicorn
+jinja2
+python-multipart
+python-dotenv
+
+# Data & ML
+numpy<2.0.0
+pandas
+scikit-learn
+joblib
+xgboost
+
+# Deep Learning (Vision & Audio)
+tensorflow-cpu
+torch==2.1.2 --extra-index-url https://download.pytorch.org/whl/cpu
+torchvision==0.16.2 --extra-index-url https://download.pytorch.org/whl/cpu
+
+transformers
+opencv-python-headless
+pillow

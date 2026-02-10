@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>X-Ray Pneumonia AI</title>
+
+<style>
+* { box-sizing: border-box; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+
+body {
+margin: 0;
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+background: radial-gradient(circle at top, #1e293b, #020617);
+color: #e5e7eb;
+}
+
+.card {
+width: 100%;
+max-width: 1000px;
+padding: 34px;
+border-radius: 18px;
+background: #020617;
+box-shadow: 0 18px 35px rgba(15,23,42,0.9);
+border: 1px solid rgba(148,163,184,0.12);
+}
+
+h1 { margin: 0 0 8px; font-size: 30px; font-weight: 650; }
+
+label {
+font-size: 15px;
+color: #9ca3af;
+display:block;
+margin-bottom:6px;
+}
+
+.row {
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+}
+
+input, button {
+padding: 10px;
+border-radius:10px;
+border:1px solid #1f2937;
+background:#020617;
+color:#e5e7eb;
+}
+
+button {
+background: linear-gradient(135deg,#16a34a,#22c55e);
+font-weight:600;
+cursor:pointer;
+}
+
+.preview {
+margin-top: 25px;
+display: flex;
+gap: 30px;
+justify-content: center;
+align-items: flex-start;
+flex-wrap: wrap;
+}
+
+.image-box {
+text-align: center;
+}
+
+.preview img {
+max-width: 420px;
+border-radius: 10px;
+border: 1px solid #1f2937;
+}
+
+/* ✅ DOWNLOAD BUTTON */
+.download-btn {
+display: inline-block;
+margin-top: 12px;
+padding: 10px 18px;
+background: linear-gradient(135deg,#16a34a,#22c55e);
+color: white;
+text-decoration: none;
+border-radius: 8px;
+font-weight: 600;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+<h1>X-Ray Pneumonia Detection</h1>
+
+<form method="post" action="/predict" enctype="multipart/form-data">
+<label>Select Chest X-Ray Image</label>
+<div class="row">
+<input type="file" name="file" required>
+<button type="submit">Upload & Detect</button>
+</div>
+</form>
+
+<hr style="margin:20px 0">
+
+<div class="preview">
+
+{% if uploaded and result %}
+
+<div class="image-box">
+<h3>Original</h3>
+<img src="{{ uploaded }}">
+</div>
+
+<div class="image-box">
+<h3>Output</h3>
+<img src="{{ result }}">
+
+<p><b>Prediction:</b> {{ label }}</p>
+<!-- <p><b>Confidence:</b> {{ confidence }}</p> -->
+
+<a href="{{ result }}" download class="download-btn">Download</a>
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}X-RAY Classifier - AI Platform{% endblock %}
+
+{% block header_title %}Chest X-RAY Classification{% endblock %}
+{% block header_subtitle %}Detect Pneumonia with AI-powered visual insights{% endblock %}
+
+{% block content %}
+<div class="card animate-fade-in">
+    <form action="/xray" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>Upload Chest X-RAY Image</label>
+            <input type="file" name="file" accept="image/*" required>
+        </div>
+        <div class="btn-container">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-microscope"></i> Analyze X-RAY
+            </button>
+        </div>
+    </form>
+</div>
+
+{% if label %}
+<div class="animate-fade-in">
+    <div class="card {% if label == 'PNEUMONIA' %}result-card-neg{% else %}result-card-pos{% endif %}">
+        <h3><i class="fas fa-stethoscope"></i> Diagnosis</h3>
+        <p class="{% if label == 'PNEUMONIA' %}result-text-neg{% else %}result-text-pos{% endif %}"
+            style="font-size: 2.5rem; font-weight: 700;">
+            {{ label }}
+        </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div class="card">
+            <h3>Original Image</h3>
+            <img src="{{ uploaded }}" style="width: 100%; border-radius: 12px; border: 1px solid var(--glass-border);">
+        </div>
+        <div class="card">
+            <h3>Grad-CAM Visualization</h3>
+            <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.9rem;">Highlights areas contributing
+                to the prediction.</p>
+            <img src="{{ result }}" style="width: 100%; border-radius: 12px; border: 1px solid var(--glass-border);">
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
