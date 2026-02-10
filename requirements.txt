@@ -12,10 +12,10 @@ scikit-learn
 joblib
 xgboost
 
-# Deep Learning (Vision & Audio)
-tensorflow-cpu
-torch==2.1.2 --extra-index-url https://download.pytorch.org/whl/cpu
-torchvision==0.16.2 --extra-index-url https://download.pytorch.org/whl/cpu
+# Deep Learning (Vision & Audio) - Use flexible versions for Cloud compatibility
+tensorflow-cpu>=2.15.0
+torch
+torchvision
 
 transformers
 opencv-python-headless
